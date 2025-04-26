@@ -2,7 +2,7 @@
 
 
 ## Team Members:
-- Ahemd Al Sayed Abdelrahman  *Team Leader* 
+- Ahemd Al Sayed Abdelrahman        * Team Leader * 
 - Rehab Al Sayed Hassan 
 - Mohamed Hisham Ahmed 
 - Sherif Al Sayed Abadah  
