@@ -1,9 +1,10 @@
 # Sales Forecasting and Demand prediction 
 
 
-# Team members:
-1- Ahemd Al Sayed Abdelrahman  *Team Leader* "\n"
-2- Rehab Alsayed Hasan 
-3- Mohamed Hisham Ahmed 
-4- Shreif Al Sayed 
+## Team Members:
+- Ahemd Al Sayed Abdelrahman  *Team Leader* 
+- Rehab Al Sayed Hasan 
+- Mohamed Hisham Ahmed 
+- Sherif Al Sayed Abadah  
+
 
