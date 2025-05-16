@@ -1,0 +1,16 @@
+dir:
+  data_dir: data
+  artifacts_dir: artifacts
+  raw_dir: data/raw
+  processed_dir: data/processed
+  models_dir: models
+  config_dir: configs
+  mlruns_dir: mlruns
+
+paths:
+  raw_data_path: data/raw/Superstore.csv
+  processed_data_path: data/processed/processed_data.csv
+  train_data_path: data/processed/train.csv
+  test_data_path: data/processed/test.csv
+  transformer: models/transformer.pkl
+  rf_model_path: mlruns/750350709773541021/57e7048870224669874f8dd62775cce9/artifacts/models/model.pkl

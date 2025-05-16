@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1747287568715
+current_stage: None
+description: null
+last_updated_timestamp: 1747287568715
+name: xgb_model
+run_id: 1071e6a95e8a4e3c8db386ad02be3c63
+run_link: null
+source: file:///e:/Videos/My%20courses/DEPI/Final%20Project/mlruns/750350709773541021/1071e6a95e8a4e3c8db386ad02be3c63/artifacts/models
+status: READY
+status_message: null
+storage_location: file:///e:/Videos/My%20courses/DEPI/Final%20Project/mlruns/750350709773541021/1071e6a95e8a4e3c8db386ad02be3c63/artifacts/models
+user_id: null
+version: 1
