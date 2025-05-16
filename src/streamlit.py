@@ -1,11 +1,7 @@
 from predict import predict
 import streamlit as st
 import pandas as pd
-import joblib
 import yaml
-from sklearn.metrics import mean_squared_error, r2_score
-import numpy as np
-import plotly.graph_objects as go
 
 # ========= Load config ==========
 def read_config():

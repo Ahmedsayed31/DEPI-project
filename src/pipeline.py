@@ -53,7 +53,6 @@ def transformation(data):
 # Plot the forecast
 def plot_forecast(dates,y_actual,y_pred):
 
-    fig , ax = plt.subplots(figsize=(15,6))
     # Convert y_test and y_pred to pandas Series
     dates = pd.to_datetime(dates)
 
@@ -86,7 +85,7 @@ def plot_forecast(dates,y_actual,y_pred):
         marker=dict(size=6)
     ))
 
-    # تنسيق الرسم
+    # Format the plot
     fig.update_layout(
         title='📈 Weekly Actual vs Predicted Sales',
         title_font=dict(size=22, color='darkblue'),
