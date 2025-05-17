@@ -9,7 +9,7 @@ dir:
 
 paths:
   raw_data_path: data/raw/Superstore.csv
-  processed_data_path: data/processed/processed_data.csv
+  processed_data_path: data/raw/sales time series.csv
   train_data_path: data/processed/train.csv
   test_data_path: data/processed/test.csv
   transformer: models/transformer.pkl
