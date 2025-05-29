@@ -57,21 +57,53 @@ def DataTransformer(df):
     df.dropna(inplace=True) # Drop the rows with missing values
 
     return df
+
+
+#---------------------------------------------------------------------------------
+# Transform user data
+def transform_user_data(df):
+    df['Order Date'] = pd.to_datetime(df['Order Date'],format='%d-%m-%Y',errors='coerce')
+    df['Ship Date'] = pd.to_datetime(df['Ship Date'],format='%d-%m-%Y',errors='coerce')
+
+        # Drop columns
+    columns_to_drop = ['Row ID','Postal Code','Order ID','Country','Customer ID','Product ID','Customer Name','Product Name']
+    df.drop(columns=[x for x in df.columns if x in columns_to_drop],inplace=True)
+
+    df['Time_taken'] = (df['Ship Date'] - df['Order Date']).dt.days
     
-def split_data(df):
-    df['Order Date'] = pd.to_datetime(df['Order Date'],format='%Y-%m-%d')
-    df['Ship Date'] = pd.to_datetime(df['Ship Date'],format='%Y-%m-%d')
-    # Split the data into training and testing sets
-    train = df[df['Order Date'].dt.year < 2014]
-    test = df[df['Order Date'].dt.year == 2014]
 
-    return train,test
+    df['price_per_unit'] = df['Sales'] / df['Quantity']
+  
+    # Extract month, year, day of week and week of year from order date
+    df['month'] = df['Order Date'].dt.month
+    df['year'] = df['Order Date'].dt.year
+    df['day_of_week']= df['Order Date'].dt.dayofweek
+    df['week_of_year'] = df['Order Date'].dt.isocalendar().week
+    
+    df.drop(columns=['Ship Date','Order Date'],inplace=True)
 
-# df = load_data()
-# train,test = split_data(df)
 
-# train.to_csv(config['dir']['processed_dir']+'/train.csv',index=False)
-# test.to_csv(config['dir']['processed_dir']+'/test.csv',index=False)
+    return df
 
-# test = load_test_data()
-# print(test.info())
+
+
+'''
+Feature need for prediction:
+1. Order Date (year,month,day,week_of_year,day_of_week)
+2. Ship Mode
+3. Segment
+4. City
+5. State
+6. Category
+7. Sub-Category
+8. sales_lag1
+9. sales_lag2
+10. sales_lag3
+11. sales_lag4
+12. sales_lag5
+13. Quantity
+14. Discount
+15. Profit
+16. price_per_unit
+17. Time_taken
+'''

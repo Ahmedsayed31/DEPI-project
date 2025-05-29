@@ -15,9 +15,9 @@ st.set_page_config(
 
 config = read_config()
 # Load dataset
-@st.cache_data
+
 def load_data():
-    return pd.read_csv(config['paths']['processed_data_path'])()
+    return pd.read_csv(config['paths']['processed_data_path'])
 
 df = load_data()
 

@@ -6,6 +6,7 @@ dir:
   models_dir: models
   config_dir: configs
   mlruns_dir: mlruns
+  transformers_dir: transformers
 
 paths:
   raw_data_path: data/raw/Superstore.csv
@@ -14,3 +15,6 @@ paths:
   test_data_path: data/processed/test.csv
   transformer: models/transformer.pkl
   rf_model_path: mlruns/750350709773541021/57e7048870224669874f8dd62775cce9/artifacts/models/model.pkl
+  quantile_encoder_path : transformers/quantile_transformer.pkl
+  label_encoder_path : transformers/label_encoder.pkl
+  scaler_encoder_path : transformers/scaler.pkl

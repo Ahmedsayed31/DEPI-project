@@ -1,0 +1,15 @@
+artifact_uri: file:///e:/Videos/My%20courses/DEPI/Final%20Project/mlruns/278903003089258674/ca4062b48bdd46fc9f056837efc6aa0b/artifacts
+end_time: 1748520010915
+entry_point_name: ''
+experiment_id: '278903003089258674'
+lifecycle_stage: active
+run_id: ca4062b48bdd46fc9f056837efc6aa0b
+run_name: Random Forest
+run_uuid: ca4062b48bdd46fc9f056837efc6aa0b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748520004341
+status: 3
+tags: []
+user_id: Check-In
