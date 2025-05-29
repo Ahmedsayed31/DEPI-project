@@ -1,58 +1,14 @@
-from preprocessing import DataTransformer,read_config ,transform_user_data
-from sklearn.preprocessing import QuantileTransformer,StandardScaler,LabelEncoder
+from preprocessing import read_config ,load_daily_data
 import pandas as pd
-import joblib
 import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go
+from datetime import datetime, timedelta
 
 
 config = read_config()
 config_dir = config['dir']
 config_path = config['paths']
-# Transformation
-def transformation(data):
-
-    # Transform the data
-    data = DataTransformer(data)
-
-    # Split the data
-    # Extract the dates
-    # data['Order Date'] = pd.to_datetime(data['Order Date'])
-    dates = data['Order Date']
-
-    # Extract the features and target
-    x = data.drop(['Sales','Order Date'],axis=1)
-    y = data['Sales']
-
-    # Encoding and Scaling      
-    def encoding_and_scaling(data):
-
-        quantile_columns = ['Profit', 'price_per_unit']
-        quantile_transformer = QuantileTransformer(output_distribution='normal', random_state=42)
-        data[quantile_columns] = quantile_transformer.fit_transform(data[quantile_columns])
-
-        # Standard Scaling for normally distributed numerical columns
-        num_scaling = ['Quantity', 'Discount', 'Time_taken']    
-        scaler = StandardScaler()
-        data[num_scaling] = scaler.fit_transform(data[num_scaling])
-
-        # Label Encoding for categorical columns
-        col_label = data.select_dtypes('object').columns.tolist()
-        label_encoder = LabelEncoder()
-        for col in col_label:
-            data[col] = label_encoder.fit_transform(data[col])
-
-        return data
-    
-    # Apply the encoding and scaling
-    x = encoding_and_scaling(x)
-
-    # Return the transformed data
-    return x,y,dates
-
-
-
 
 
 # Plot the forecast
@@ -114,33 +70,21 @@ def plot_forecast(dates,y_actual,y_pred):
     return fig
 
 
-
-
 #---------------------------------------------------------------------------------
-# Transform user data
-def prepare_user_data(data):
-    data = transform_user_data(data)
+def prepare_data(date:str):
 
-    def encoding_and_scaling(data):
+    df_daily = load_daily_data()
+    df_daily = df_daily.drop(['Unnamed: 0'],axis=1)
+    df_daily['Order Date'] = pd.to_datetime(df_daily['Order Date'],format="%Y-%m-%d")
+    date = pd.to_datetime(date)
 
-        quantile_columns = ['Profit', 'price_per_unit']
-        qe = joblib.load(config_path['quantile_encoder_path'])
-        data[quantile_columns] = qe.transform(data[quantile_columns])
+    end_date = date + timedelta(days=6)
+    daily_sales = df_daily.set_index(['Order Date'])['Sales']
+    actual_sales = daily_sales.loc[date:end_date]
 
-        # Standard Scaling for normally distributed numerical columns
-        num_scaling = ['Quantity', 'Discount', 'Time_taken']   
-        scaler =joblib.load(config_path['scaler_encoder_path'])
-        data[num_scaling] = scaler.transform(data[num_scaling])
+    target_date = date
+    target_df = df_daily[df_daily['Order Date']==target_date].drop(['Sales','Order Date'],axis=1)
 
-        # Label Encoding for categorical columns
-        label_encoders = joblib.load(config_path['label_encoder_path'])
-        col_label = ['Ship Mode','Segment','City','State','Region','Category','Sub-Category']
-        for col in col_label:
-            if col in label_encoders:
-                data[col] = label_encoders[col].transform(data[col])
+    return target_df ,actual_sales 
 
-        return data
 
-    data = encoding_and_scaling(data)
-
-    return data

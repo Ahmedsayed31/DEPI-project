@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1748532938634
+current_stage: None
+description: null
+last_updated_timestamp: 1748532938634
+name: rf_model
+run_id: 63a85d3f927742d6b5b1322db3e194de
+run_link: null
+source: file:///e:/Videos/My%20courses/DEPI/Final%20Project/mlruns/278903003089258674/63a85d3f927742d6b5b1322db3e194de/artifacts/models
+status: READY
+status_message: null
+storage_location: file:///e:/Videos/My%20courses/DEPI/Final%20Project/mlruns/278903003089258674/63a85d3f927742d6b5b1322db3e194de/artifacts/models
+user_id: null
+version: 3

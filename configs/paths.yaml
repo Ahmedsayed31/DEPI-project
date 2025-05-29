@@ -10,11 +10,9 @@ dir:
 
 paths:
   raw_data_path: data/raw/Superstore.csv
-  processed_data_path: data/raw/sales time series.csv
-  train_data_path: data/processed/train.csv
-  test_data_path: data/processed/test.csv
+  processed_data_path: data/processed/daily_data.csv
   transformer: models/transformer.pkl
-  rf_model_path: mlruns/750350709773541021/57e7048870224669874f8dd62775cce9/artifacts/models/model.pkl
+  xgb_model_path: mlruns/278903003089258674/8c4b25cf29e8460ebd950c8240d3a977/artifacts/models/model.xgb
   quantile_encoder_path : transformers/quantile_transformer.pkl
   label_encoder_path : transformers/label_encoder.pkl
   scaler_encoder_path : transformers/scaler.pkl

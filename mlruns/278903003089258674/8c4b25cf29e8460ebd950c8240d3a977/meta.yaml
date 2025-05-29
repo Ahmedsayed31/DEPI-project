@@ -1,0 +1,15 @@
+artifact_uri: file:///e:/Videos/My%20courses/DEPI/Final%20Project/mlruns/278903003089258674/8c4b25cf29e8460ebd950c8240d3a977/artifacts
+end_time: 1748532765761
+entry_point_name: ''
+experiment_id: '278903003089258674'
+lifecycle_stage: active
+run_id: 8c4b25cf29e8460ebd950c8240d3a977
+run_name: XGBoost
+run_uuid: 8c4b25cf29e8460ebd950c8240d3a977
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748532757418
+status: 3
+tags: []
+user_id: Check-In
