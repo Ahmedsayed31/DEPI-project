@@ -1,5 +1,5 @@
-from preprocessing import read_config
-from predict import predict
+from preprocessing import read_config,load_data
+from predict import predict_next_week
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -16,8 +16,6 @@ st.set_page_config(
 config = read_config()
 # Load dataset
 
-def load_data():
-    return pd.read_csv(config['paths']['processed_data_path'])
 
 df = load_data()
 
@@ -229,16 +227,21 @@ if page == "Dashboard":
         st.dataframe (filtered_df.head(100).style.background_gradient(cmap='Blues'))
 
 elif page == "Model Deployment":
-
     st.title("🤖 Sales Forecast Dashboard")
-
-    uploaded_file = st.file_uploader("Upload your test CSV file", type=["csv"])
-
-    if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file)
+    
+    input_date = st.date_input(
+        "Select Start Date",
+        min_value=pd.to_datetime('2011-01-01'),
+        max_value=pd.to_datetime('2014-12-31')
+    )
+    
+    submit_button = st.button("Forecast next week")
+    
+    if submit_button and input_date is not None:
+        
 
         with st.spinner("Processing and predicting..."):
-            rmse, r2, fig = predict(df)
+           fig,rmse,r2,results = predict_next_week(date_str=input_date)
 
         # Metrics Cards
         col1, col2 = st.columns(2)

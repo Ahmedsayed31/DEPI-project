@@ -1,4 +1,4 @@
-from pipeline import plot_forecast,prepare_data,read_config
+from pipeline import plot_weekly_forecast,prepare_data,read_config
 from preprocessing import load_daily_data
 import numpy as np
 import pandas as pd
@@ -13,21 +13,9 @@ config = read_config()
 config_path = config['paths']
 config_dir = config['dir']
 
-# def predict_one_week():
 
 
-# target_df,sales =prepare_data('2014-12-01')
-
-# dmatrix = xgb.DMatrix(target_df)
-xgb_model = xgb.Booster()
-xgb_model.load_model(config_path['xgb_model_path'])
-
-# pred = xgb_model.predict(dmatrix)[0]
-# print(pred,sales[0])
-
-
-
-def predict_next_week(date_str: str, model):
+def predict_next_week(date_str: str):
     # Prepare base data
     target_df, actual_sales = prepare_data(date_str)
 
@@ -63,8 +51,11 @@ def predict_next_week(date_str: str, model):
         target_df['rolling_mean_sales_1q'] = sales_history.rolling(120).mean().loc[current_date]
 
         # Predict the sales
+        xgb_model = xgb.Booster()
+        xgb_model.load_model(config_path['xgb_model_path'])
+
         dmatrix = xgb.DMatrix(target_df)
-        pred = model.predict(dmatrix)[0]
+        pred = xgb_model.predict(dmatrix)[0]
         predictions.append(pred)
 
         # Update sales history with the predicted value
@@ -81,11 +72,21 @@ def predict_next_week(date_str: str, model):
 
         target_df = pd.DataFrame([static_features])
 
-    return predictions, actual_sales
+    results = pd.DataFrame(actual_sales.values,columns=['actual'],index=actual_sales.index).reset_index()
+    results['predictions'] = predictions
 
-predictions , actual_sales =predict_next_week(date_str='2014-12-21',model= xgb_model)
+    actual = results['actual'].values
+    preds = results['predictions'].values
 
-act_vs_pred = pd.DataFrame(actual_sales.values,columns=['actual'],index=actual_sales.index).reset_index()
-act_vs_pred['predictions'] = predictions
+    fig = plot_weekly_forecast(results)
 
-print(act_vs_pred)
+    mse = mean_squared_error(actual,preds)
+    rmse = np.sqrt(mse)
+
+    r2 = r2_score(actual,preds)
+
+
+    return fig,rmse,r2,results
+
+fig,rmse ,r2,result_df = predict_next_week(date_str='2014-12-21')
+print(rmse,r2,result_df)
